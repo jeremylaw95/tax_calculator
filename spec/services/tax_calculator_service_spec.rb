@@ -1,5 +1,4 @@
-require 'spec_helper'
-require './app/services/tax_calculator_service'
+require 'rails_helper'
 
 RSpec.describe TaxCalculatorService, type: :service do
   # Create a shared service instance
