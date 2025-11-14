@@ -24,18 +24,24 @@ class TaxCalculatorService
     matching_bands = @tax_bands.select { |band| band[:lower_threshold] < income_bd }
 
     matching_bands.each do |band|
-      bandwidth = BigDecimal((band[:higher_threshold] - band[:lower_threshold]).to_s)
-
-      # If remaining untaxed income is less than bandwidth, tax remaining income and break from loop
-      if remaining < bandwidth
-        tax_to_be_paid += remaining * band[:rate]
-        break
-      end
-
-      tax_to_be_paid += bandwidth * band[:rate]
-      remaining -= bandwidth
+      tax_for_band, remaining = calculate_tax_for_band(band, remaining)
+      tax_to_be_paid += tax_for_band
+      break if remaining.zero?
     end
 
     tax_to_be_paid.round(2)
+  end
+
+  private
+
+  def calculate_tax_for_band(band, remaining_income)
+    bandwidth = BigDecimal((band[:higher_threshold] - band[:lower_threshold]).to_s)
+
+    # If remaining untaxed income is less than bandwidth, tax remaining income and break from loop
+    if remaining_income < bandwidth
+      [remaining_income * band[:rate], BigDecimal('0')]
+    else
+      [bandwidth * band[:rate], remaining_income - bandwidth]
+    end
   end
 end
