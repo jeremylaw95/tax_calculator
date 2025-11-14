@@ -4,10 +4,14 @@ class TaxCalculatorController < ApplicationController
   def calculate
     income = BigDecimal(params[:income])
 
+    if income.negative?
+      render json: { error: 'Income cannot be negative' }, status: :unprocessable_entity
+      return
+    end
+
     result = TaxCalculatorService.new.call(income)
-
-    @tax_result = result
-
-    render partial: 'result', locals: { tax: @tax_result }
+    render partial: 'result', locals: { tax: result }
+  rescue ArgumentError, TypeError
+    render json: { error: 'Please enter a valid number' }, status: :unprocessable_entity
   end
 end
