@@ -1,0 +1,11 @@
+# IDE files
+.idea/
+.vscode/
+
+# Ruby version managers
+.ruby-version
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
