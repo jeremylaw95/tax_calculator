@@ -1,9 +1,14 @@
 <h1>Tax Calculator</h1>
 
-<%= form_with url: calculate_path, method: :post do |form| %>
+<%= form_with url: calculate_path, method: :post, local: true do |form| %>
   <%= form.label :income, "Yearly Income:" %>
-  <%= form.number_field :income, step: 0.01, min: 0, required: true %>
+  <%= form.number_field :income, step: 0.01, min: 0, required: true, value: @income_input %>
   <%= form.submit "Calculate" %>
 <% end %>
 
-<%= turbo_frame_tag "tax_result" %>
+<% if @tax %>
+  <div>
+    <h2>Result</h2>
+    <p><strong>Tax to be paid:</strong> $<%= number_with_precision(@tax, precision: 2, delimiter: ',') %></p>
+  </div>
+<% end %>

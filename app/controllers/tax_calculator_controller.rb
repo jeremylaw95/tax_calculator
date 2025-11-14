@@ -9,8 +9,9 @@ class TaxCalculatorController < ApplicationController
       return
     end
 
-    result = TaxCalculatorService.new.call(income)
-    render partial: 'result', locals: { tax: result }
+    @income_input = params[:income]
+    @tax = TaxCalculatorService.new.call(income)
+    render :index
   rescue ArgumentError, TypeError
     render json: { error: 'Please enter a valid number' }, status: :unprocessable_content
   end
