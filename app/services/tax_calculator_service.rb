@@ -16,7 +16,7 @@ class TaxCalculatorService
   def call(income)
     income_bd = BigDecimal(income.to_s)
     tax_to_be_paid = BigDecimal('0')
-    
+
     # store remaining untaxed income so that we can update it as we tax each band
     remaining = income_bd
 
@@ -31,7 +31,7 @@ class TaxCalculatorService
         tax_to_be_paid += remaining * band[:rate]
         break
       end
-      
+
       tax_to_be_paid += bandwidth * band[:rate]
       remaining -= bandwidth
     end
