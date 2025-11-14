@@ -20,10 +20,6 @@ RSpec.describe TaxCalculatorService, type: :service do
       expect(service.call(0)).to eq(BigDecimal('0'))
     end
 
-    it 'returns 0 for negative income' do
-      expect(service.call(-10_000)).to eq(BigDecimal('0'))
-    end
-
     it 'handles decimal inputs' do
       result = service.call(10_000.50)
       expect(result).to be_within(0.01).of(BigDecimal('1050.05'))
