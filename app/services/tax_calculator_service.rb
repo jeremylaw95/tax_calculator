@@ -1,5 +1,3 @@
-require 'bigdecimal'
-
 class TaxCalculatorService
   NZ_2025_TAX_BANDS = [
     { lower_threshold: 0, higher_threshold: 15_600, rate: BigDecimal('0.105') },
