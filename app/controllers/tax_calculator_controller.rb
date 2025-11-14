@@ -2,7 +2,7 @@ class TaxCalculatorController < ApplicationController
   def index; end
 
   def calculate
-    income = params[:income].to_f
+    income = BigDecimal(params[:income])
 
     result = TaxCalculatorService.new.call(income)
 
