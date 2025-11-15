@@ -22,6 +22,8 @@ Visit `http://localhost:3000/tax_calculator`
 
 ## Running Tests
 
+To run all of the service, controller and system tests
+
 ```bash
 rspec 
 ```

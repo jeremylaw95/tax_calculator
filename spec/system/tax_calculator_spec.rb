@@ -25,4 +25,10 @@ RSpec.describe 'Tax calculator', type: :system do
     fill_income_and_submit '25000.40'
     expect_tax_result(tax: '$3,283.07', income: '25000.40')
   end
+
+  it 'shows zero tax for zero income', :aggregate_failures do
+    visit root_path
+    fill_income_and_submit '0'
+    expect_tax_result(tax: '$0.00', income: '0')
+  end
 end

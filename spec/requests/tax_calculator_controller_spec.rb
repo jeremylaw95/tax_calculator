@@ -25,6 +25,14 @@ RSpec.describe TaxCalculatorController, type: :request do
         expect(response).to have_http_status(:success)
         expect(response.body).to include('5,070.12')
       end
+
+      it 'shows zero tax for zero income', :aggregate_failures do
+        get root_path, params: { income: '0', tax_year: '2025' }
+
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include('0.00')
+        expect(response.body).to include('Tax to be paid')
+      end
     end
 
     context 'with invalid input' do
