@@ -1,6 +1,6 @@
 # NZ Tax Calculator
 
-A Ruby on Rails application that calculates income tax for New Zealand's 2025 tax rates.
+A Ruby on Rails application that calculates income tax for New Zealand's 2024 and 2025 tax rates.
 
 ## Prerequisites
 - Ruby 3.x
@@ -45,3 +45,4 @@ rspec
 - **BigDecimal**: Used for all financial calculations to avoid floating-point precision errors
 - **Progressive Tax Calculation**: Iterates through tax bands, calculating tax owed for each bracket
 - **Constants**: Tax bands defined as frozen constants for immutability and performance
+- **IRD-sourced rates**: Tax bands are based on official IRD 2024/25 and 2025/26 individual income tax tables
