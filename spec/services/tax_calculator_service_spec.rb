@@ -47,5 +47,13 @@ RSpec.describe TaxCalculatorService, type: :service do
         expect(service.call(1_000_000)).to eq(BigDecimal('369077.5'))
       end
     end
+
+    describe '2024 tax year' do
+      let(:service2024) { described_class.new(year: '2024') }
+
+      it 'returns correct tax for a mid-range income' do
+        expect(service2024.call(35_000)).to eq(BigDecimal('5070.12'))
+      end
+    end
   end
 end

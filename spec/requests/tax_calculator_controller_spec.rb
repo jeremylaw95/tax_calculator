@@ -18,6 +18,13 @@ RSpec.describe TaxCalculatorController, type: :request do
         get root_path, params: { income: '10000.50', tax_year: '2025' }
         expect(response).to have_http_status(:success)
       end
+
+      it 'calculates tax using 2024 bands', :aggregate_failures do
+        get root_path, params: { income: '35000', tax_year: '2024' }
+
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include('5,070.12')
+      end
     end
 
     context 'with invalid input' do
