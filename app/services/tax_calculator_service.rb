@@ -1,4 +1,5 @@
-# app/services/tax_calculator_service.rb
+# Calculates NZ income tax using IRD marginal bands for 2024/25 and 2025/26 using BigDecimal.
+# The tax year is selected via the `year` argument.
 class TaxCalculatorService
   NZ_2025_TAX_BANDS = [
     { lower_threshold: 0, higher_threshold: 15_600, rate: BigDecimal('0.105') },
@@ -20,6 +21,7 @@ class TaxCalculatorService
     { lower_threshold: 180_000, higher_threshold: Float::INFINITY, rate: BigDecimal('0.39') }
   ].freeze
 
+  # Map of supported tax years to their marginal band definitions.
   TAX_BANDS = {
     '2024' => NZ_2024_TAX_BANDS,
     '2025' => NZ_2025_TAX_BANDS
@@ -36,7 +38,7 @@ class TaxCalculatorService
     # store remaining untaxed income so that we can update it as we tax each band
     remaining = income_bd
 
-    # store the bands that the income falls within
+    # store bands where income is above the lower threshold (bands are treated as marginal)
     matching_bands = @tax_bands.select { |band| band[:lower_threshold] < income_bd }
 
     matching_bands.each do |band|

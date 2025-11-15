@@ -38,6 +38,11 @@ RSpec.describe TaxCalculatorService, type: :service do
         expect(service.call(53_501)).to eq(BigDecimal('8270.8'))
       end
 
+      it 'handles decimal values just above thresholds', :aggregate_failures do
+        expect(service.call(15_600.50)).to eq(BigDecimal('1638.09'))
+        expect(service.call(53_500.50)).to eq(BigDecimal('8270.65'))
+      end
+
       it 'handles values just below thresholds', :aggregate_failures do
         expect(service.call(15_599)).to eq(BigDecimal('1637.90'))
         expect(service.call(53_499)).to eq(BigDecimal('8270.33'))
