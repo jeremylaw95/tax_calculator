@@ -32,6 +32,9 @@ Given additional time, here are improvements I would implement; each item is int
 - Document the tax calculation algorithm with examples
 - Create a simple architecture diagram
 
+## 7. Styling
+- Move inline CSS to css file
+
 ---
 
 **Impact:** Items 1-3 improve immediate user value, 4 adds practical functionality, 5-6 improve maintainability. All achievable in a few hours each.
