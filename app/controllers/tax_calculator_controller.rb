@@ -1,18 +1,20 @@
+# app/controllers/tax_calculator_controller.rb
 class TaxCalculatorController < ApplicationController
-  def index; end
+  def index
+    @income_input = params[:income]
+    @selected_tax_year = params[:tax_year].presence || '2025'
 
-  def calculate
-    income = BigDecimal(params[:income])
+    return if @income_input.blank?
+
+    income = BigDecimal(@income_input)
 
     if income.negative?
-      render json: { error: 'Income cannot be negative' }, status: :unprocessable_content
+      @error = 'Income cannot be negative'
       return
     end
 
-    @income_input = params[:income]
-    @tax = TaxCalculatorService.new.call(income)
-    render :index
+    @tax = TaxCalculatorService.new(year: @selected_tax_year).call(income)
   rescue ArgumentError, TypeError
-    render json: { error: 'Please enter a valid number' }, status: :unprocessable_content
+    @error = 'Please enter a valid number'
   end
 end

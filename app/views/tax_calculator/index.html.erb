@@ -1,14 +1,37 @@
-<h1>Tax Calculator</h1>
+<div style="max-width: 480px; margin: 2rem auto; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <h1 style="text-align: center; margin-bottom: 1.5rem;">Tax Calculator</h1>
 
-<%= form_with url: calculate_path, method: :post, local: true do |form| %>
-  <%= form.label :income, "Yearly Income:" %>
-  <%= form.number_field :income, step: 0.01, min: 0, required: true, value: @income_input %>
-  <%= form.submit "Calculate" %>
-<% end %>
+<%= form_with url: root_path, method: :get, local: true do |form| %>
+  <div style="margin-bottom: 1rem;">
+    <%= form.label :tax_year, "Tax year:", style: "display: block; margin-bottom: 0.25rem;" %>
+    <%= form.select :tax_year,
+          options_for_select([["2025/26", "2025"], ["2024/25", "2024"]], @selected_tax_year || "2025"),
+          {},
+          style: "width: 100%; margin-bottom: 1rem;" %>
 
-<% if @tax %>
-  <div>
-    <h2>Result</h2>
-    <p><strong>Tax to be paid:</strong> $<%= number_with_precision(@tax, precision: 2, delimiter: ',') %></p>
+    <%= form.label :income, "Yearly Income:", style: "display: block; margin-bottom: 0.25rem;" %>
+    <%= form.number_field :income,
+      step: 1000,
+      min: 0,
+      required: true,
+      value: @income_input,
+      style: "width: 100%;"
+    %>
   </div>
+
+  <%= form.submit "Calculate", style: "padding: 0.4rem 0.9rem;" %>
 <% end %>
+
+  <% if @error.present? %>
+    <div style="margin-top: 1rem; color: red;">
+      <%= @error %>
+    </div>
+  <% end %>
+
+  <% if @tax %>
+    <div style="margin-top: 1.5rem;">
+      <h2>Result</h2>
+      <p><strong>Tax to be paid:</strong> $<%= number_with_precision(@tax, precision: 2, delimiter: ',') %></p>
+    </div>
+  <% end %>
+</div>
