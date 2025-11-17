@@ -22,7 +22,7 @@ Visit `http://localhost:3000/tax_calculator`
 
 ## Running Tests
 
-To run all of the service, controller and system tests
+To run the service, controller and system tests
 
 ```bash
 rspec 
@@ -33,6 +33,17 @@ rspec
 - Up to $15,600: 10.5%
 - $15,601 - $53,500: 17.5%
 - $53,501 - $78,100: 30%
+- $78,101 - $180,000: 33%
+- $180,001 and over: 39%
+
+## Tax Rates (2024)
+
+- Up to $14,000: 10.5%
+- $14,001 - $15,600: 12.82%
+- $15,601 - $48,000: 17.5%
+- $48,001 - $53,500: 21.64%
+- $53,501 - $70,000: 30%
+- $70,001 - $78,100: 30.99%
 - $78,101 - $180,000: 33%
 - $180,001 and over: 39%
 
